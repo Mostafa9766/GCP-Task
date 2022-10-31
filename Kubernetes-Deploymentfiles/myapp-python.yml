@@ -1,0 +1,26 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mypython-app
+  labels:
+    name: my-app
+spec:
+  template:
+    metadata:
+      labels:
+        name: my-app
+
+    spec:
+      containers:
+        - name: app-container
+          image: gcr.io/mostafa-ahmed-gomaa/my-python-app:v1.0
+          env:
+            - name: REDIS_HOST
+              value: redis_service.default.svc.cluster.local
+          containerPort:
+            - port : 8000    
+  replicas: 3
+  selector:
+    matchLabels:
+      name: myapp-app
+  
